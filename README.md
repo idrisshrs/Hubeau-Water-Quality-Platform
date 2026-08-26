@@ -1,33 +1,52 @@
-# SAE 2.01 & 2.04 : Surveillance de la Qualité de l'Eau
+# Hub'Eau Water Quality Data Platform
 
-## Présentation du Projet
-Ce projet, réalisé dans le cadre du BUT Informatique, est une application web permettant de suivre la qualité de l'eau sur le territoire français.
+## Overview
 
-Il répond à une problématique d'architecture de données hybride : comment optimiser les performances en mélangeant des données locales et des données distantes ?
+Academic project completed as part of the BUT Informatique programme. The application explores a hybrid data architecture for visualising French water-quality monitoring stations and retrieving measurement data from the public **Hub'Eau** API.
 
-**Objectif :** Fournir une interface de visualisation des stations de mesure et de leurs analyses physico-chimiques en temps réel via l'API nationale **Hub'eau**.
+This was a team academic project. The repository is presented as evidence of work with Python, Flask, relational data and external APIs, not as an individual production product.
 
-## Architecture Technique (Hybride)
-L'application respecte strictement le patron de conception **MVC (Modèle-Vue-Contrôleur)** et sépare les données en deux catégories pour optimiser la charge réseau :
+## Architecture
 
-1.  **Données Statiques (Stockage Local - PostgreSQL)** : 
-    * Les informations invariables (emplacement des stations, coordonnées GPS) sont stockées dans une base de données locale pour un affichage rapide sur la carte.
-2.  **Données Dynamiques (API Hub'eau)** :
-    * Les relevés de qualité (température, pH, nitrates) sont récupérés en temps réel via l'API externe uniquement lorsque l'utilisateur sélectionne une station.
+The application follows an MVC-style structure and separates two categories of data:
 
-## Stack Technologique
-* **Langage :** Python 3
-* **Web Framework :** Flask (Gestion des routes et du templating Jinja2)
-* **Base de Données :** PostgreSQL (Script de création et d'importation des données statiques)
-* **API Externe :** Hub'eau (Qualité des cours d'eau)
-* **Front-End :** HTML5, CSS3, JavaScript (Affichage dynamique)
+1. **Local reference data**
+   - station metadata and geographic information stored in PostgreSQL;
+   - used to avoid repeatedly downloading information that changes infrequently.
 
-## Structure du Code
-* `controller.py` : Le contrôleur principal qui gère les requêtes HTTP et l'orchestration.
-* `/model` : Contient la logique métier et les interactions avec la BDD PostgreSQL (`acces_postgre.py`).
-* `/templates` : Les vues HTML de l'application.
-* `/static` : Fichiers CSS et images (Architecture MVC). 
-* `script_admin` : Scripts d'automatisation pour peupler la base de données locale à partir des référentiels nationaux.
+2. **Remote measurement data**
+   - water-quality measurements requested from the Hub'Eau API when needed;
+   - retrieved dynamically for the selected station.
 
----
-*Projet validant les compétences de développement d'application (SAE 2.01) et d'exploitation de base de données (SAE 2.04).*
+## Technology Stack
+
+```text
+Python 3
+Flask / Jinja2
+PostgreSQL
+Hub'Eau REST API
+HTML / CSS / JavaScript
+```
+
+## Repository Structure
+
+- `controller.py` - Flask routes and application orchestration
+- `model/` - data-access and application logic
+- `acces_postgre.py` - PostgreSQL access utilities
+- `templates/` - HTML/Jinja views
+- `static/` - frontend assets
+- `graphiques.py` - data visualisation-related code
+- `Flexible_ChatBot/` - additional chatbot/RAG experimentation kept in the original academic repository
+
+## Skills Demonstrated
+
+- integration of an external REST API;
+- relational database access;
+- separation of local and remote data sources;
+- Python web development with Flask;
+- MVC-style application organisation;
+- collaborative academic development.
+
+## Naming Note
+
+The repository was originally published under the name `Maritime-Data-Analytics-Platform`, but the code in this repository corresponds primarily to the Hub'Eau water-quality project. The README uses the accurate project name to avoid misrepresenting its contents.
